@@ -1,12 +1,15 @@
 [Unit]
 Description=unifi controller
 Requires=docker.service
+BindsTo=docker.service
 After=docker.service
 
 [Service]
 Restart=always
-ExecStart=/home/pirate/unifi/start.sh
-ExecStop=/home/pirate/unifi/stop.sh
+User=pirate
+WorkingDirectory=/home/pirate/unifi
+ExecStart=/bin/bash /home/pirate/unifi/start.sh
+ExecStop=/bin/bash /home/pirate/unifi/stop.sh
 
 [Install]
-WantedBy=local.target
+WantedBy=multi-user.target
